@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+
 import { galleryItems } from "./Gallery";
 
 export default function GalleryItem() {

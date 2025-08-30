@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { useParams } from "react-router";
 import { Document, Page, pdfjs } from "react-pdf";
 
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -10,8 +9,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url
 ).toString();
 
-export default function OfferPdf() {
-    const offerUrl = useParams();
+export default function PropsPdf({ fileUrl }) {
+    const pdfUrl = fileUrl;
     const [numPages, setNumPages] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -35,18 +34,19 @@ export default function OfferPdf() {
     }, []);
 
     return (
-        <section className="site-header-2 flex-center mb-50 bgcolor-2 border-rounded">
-            <Document
-                className="pdf-document"
-                file={offerUrl.fileUrl}
-                onLoadSuccess={onDocumentLoadSuccess}
-                onLoadError={(error) =>
-                    console.error("Error loading PDF:", error)
-                }
-            >
-                <Page pageNumber={pageNumber} width={width} />
-            </Document>
-            <p>
+        <section className="site-header-2 flex-center mb-50 border-rounded">
+            <div className="pdf">
+                <Document
+                    className="pdf-document"
+                    file={pdfUrl}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                    onLoadError={(error) =>
+                        console.error("Error loading PDF:", error)
+                    }
+                >
+                    <Page pageNumber={pageNumber} width={width} />
+                </Document>
+                {/* <p>
                 Страница {pageNumber} от {numPages}
             </p>
             <button
@@ -63,7 +63,8 @@ export default function OfferPdf() {
                 disabled={pageNumber >= numPages}
             >
                 Следваща
-            </button>
+            </button> */}
+            </div>
         </section>
     );
 }

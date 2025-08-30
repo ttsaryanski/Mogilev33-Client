@@ -26,6 +26,7 @@ dist-ssr
 help_deploy.md
 help_git.md
 help_git_actions.md
+help_cors.md
 gcp_json_key.json
 .dockerignore
 any.md

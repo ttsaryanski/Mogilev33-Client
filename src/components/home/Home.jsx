@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 import { inviteServices } from "../../services/inviteServices";
 
-import InvitePdf from "../pdf/invitePdf";
+import PropsPdf from "../pdf/propsPdf";
 import Spinner from "../shared/spinner/Spinner";
 
 export default function Home() {
@@ -38,7 +38,7 @@ export default function Home() {
         <section className="site-header flex-center bgcolor-2 border-rounded">
             <h1 className="h1-home">гр.Габрово, бул."Могильов" 33</h1>
             {isLoading && <Spinner />}
-            {invite.length > 0 && <InvitePdf fileUrl={invite[0].fileUrl} />}
+            {invite.length > 0 && <PropsPdf fileUrl={invite[0].fileUrl} />}
             <Link to="/protocols" className="h1">
                 Към протоколите
             </Link>
