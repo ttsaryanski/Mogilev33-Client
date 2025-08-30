@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { useError } from "../../contexts/ErrorContext";
+
 import { protocolServices } from "../../services/protocolServices";
 
 import SimpleProtocol from "./SimpleProtocol";
@@ -7,6 +9,7 @@ import Spinner from "../shared/spinner/Spinner";
 import NothingYet from "../shared/NothingYet";
 
 export default function Protocols() {
+    const { setError } = useError();
     const [protocols, setProtocols] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -20,9 +23,10 @@ export default function Protocols() {
                     signal
                 );
                 setProtocols(protocolsData);
-                setIsLoading(false);
             } catch (error) {
-                console.error("Error fetching protocols:", error);
+                if (!signal.aborted) {
+                    setError(error.message);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -32,7 +36,7 @@ export default function Protocols() {
         return () => {
             abortController.abort();
         };
-    }, []);
+    }, [setError]);
 
     return (
         <>

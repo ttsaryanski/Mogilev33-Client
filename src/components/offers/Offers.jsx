@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import { useError } from "../../contexts/ErrorContext";
+
 import { offerServices } from "../../services/offerServices";
 
 import SimpleOffer from "./SimpleOffer";
@@ -7,6 +9,7 @@ import Spinner from "../shared/spinner/Spinner";
 import NothingYet from "../shared/NothingYet";
 
 export default function Offers() {
+    const { setError } = useError();
     const [offers, setOffers] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -18,9 +21,10 @@ export default function Offers() {
             try {
                 const offersData = await offerServices.getAllOffers(signal);
                 setOffers(offersData);
-                setIsLoading(false);
             } catch (error) {
-                console.error("Error fetching protocols:", error);
+                if (!signal.aborted) {
+                    setError(error.message);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -30,7 +34,7 @@ export default function Offers() {
         return () => {
             abortController.abort();
         };
-    }, []);
+    }, [setError]);
 
     return (
         <>

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 
+import { useError } from "../../contexts/ErrorContext";
+
 import { inviteServices } from "../../services/inviteServices";
 
 import PropsPdf from "../pdf/propsPdf";
 import Spinner from "../shared/spinner/Spinner";
 
 export default function Home() {
+    const { setError } = useError();
     const [invite, setInvite] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -20,9 +23,10 @@ export default function Home() {
                     signal
                 );
                 setInvite(invitationsData);
-                setIsLoading(false);
             } catch (error) {
-                console.error("Error fetching invitations:", error);
+                if (!signal.aborted) {
+                    setError(error.message);
+                }
             } finally {
                 setIsLoading(false);
             }
@@ -32,7 +36,7 @@ export default function Home() {
         return () => {
             abortController.abort();
         };
-    }, []);
+    }, [setError]);
 
     return (
         <section className="site-header flex-center bgcolor-2 border-rounded">

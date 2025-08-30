@@ -6,7 +6,7 @@ export default function Header() {
 
     const handleLinkClick = () => {
         if (checkRef.current) {
-            checkRef.current.checked = false; // затваря менюто
+            checkRef.current.checked = false;
         }
     };
     return (
