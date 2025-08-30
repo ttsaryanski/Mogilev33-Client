@@ -35,3 +35,4 @@ test_rest.http
 HELP.md
 .env*
 cors.json
+.firebase

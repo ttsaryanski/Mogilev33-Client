@@ -57,7 +57,8 @@ export default function Offers() {
                                 {offers
                                     .sort(
                                         (a, b) =>
-                                            new Date(b.date) - new Date(a.date)
+                                            new Date(a.price) -
+                                            new Date(b.price)
                                     )
                                     .map((offer) => (
                                         <SimpleOffer
