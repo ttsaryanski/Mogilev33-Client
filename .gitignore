@@ -33,3 +33,4 @@ any.md
 test_rest.http
 HELP.md
 .env*
+cors.json
