@@ -19,10 +19,10 @@ export default function Home() {
 
         const fetchInvitations = async () => {
             try {
-                const invitationsData = await inviteServices.getAllInvitations(
-                    signal
-                );
+                const invitationsData =
+                    await inviteServices.getAllInvitations(signal);
                 setInvite(invitationsData);
+                //setInvite([]);
             } catch (error) {
                 if (!signal.aborted) {
                     setError(error.message);
@@ -42,6 +42,9 @@ export default function Home() {
         <section className="site-header flex-center bgcolor-2 border-rounded">
             <h1 className="h1-home">гр.Габрово, бул."Могильов" 33</h1>
             {isLoading && <Spinner />}
+            {invite.length === 0 && !isLoading && (
+                <h2 className="h1-home">Няма актуални покани за събития</h2>
+            )}
             {invite.length > 0 && <PropsPdf fileUrl={invite[0].fileUrl} />}
             <Link to="/protocols" className="h1">
                 Към протоколите

@@ -19,9 +19,8 @@ export default function Protocols() {
 
         const fetchProtocols = async () => {
             try {
-                const protocolsData = await protocolServices.getAllProtocols(
-                    signal
-                );
+                const protocolsData =
+                    await protocolServices.getAllProtocols(signal);
                 setProtocols(protocolsData);
             } catch (error) {
                 if (!signal.aborted) {
@@ -58,7 +57,7 @@ export default function Protocols() {
                                 {protocols
                                     .sort(
                                         (a, b) =>
-                                            new Date(b.date) - new Date(a.date)
+                                            new Date(b.date) - new Date(a.date),
                                     )
                                     .map((protocol) => (
                                         <SimpleProtocol
